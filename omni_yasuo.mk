@@ -10,7 +10,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from ossi device
-$(call inherit-product, device/oppo/ossi/device.mk)
+$(call inherit-product, device/oppo/yasuo/device.mk)
 
 PRODUCT_DEVICE := yasuo
 PRODUCT_NAME := omni_yasuo
