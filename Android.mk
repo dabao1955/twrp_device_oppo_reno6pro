@@ -7,6 +7,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),ossi)
+ifeq ($(TARGET_DEVICE),yasuo)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif

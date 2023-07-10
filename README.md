@@ -1,4 +1,4 @@
-# Android device tree for oplus ossi (ossi)
+# Android device tree for Oppo RENO 6 PRO (yasuo)
 
 ```
 #
