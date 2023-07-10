@@ -12,10 +12,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from ossi device
 $(call inherit-product, device/oppo/ossi/device.mk)
 
-PRODUCT_DEVICE := ossi
-PRODUCT_NAME := omni_ossi
+PRODUCT_DEVICE := yasuo
+PRODUCT_NAME := omni_yasuo
 PRODUCT_BRAND := oppo
-PRODUCT_MODEL := ossi
+PRODUCT_MODEL := yasuo
 PRODUCT_MANUFACTURER := oppo
 
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
