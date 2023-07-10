@@ -60,6 +60,7 @@ TARGET_SCREEN_DENSITY := 480
 TARGET_FORCE_PREBUILT_KERNEL := true                     # true/false：确定设备是否为64位
 # 从解压缩的恢复映像中获取CMDLine、Base、Pagesize和offsets并在下面填入
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
+BOARD_KERNEL_IMAGE_NAME := Image.gz
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
