@@ -15,7 +15,7 @@ $(call inherit-product, device/oppo/yasuo/device.mk)
 PRODUCT_DEVICE := yasuo
 PRODUCT_NAME := omni_yasuo
 PRODUCT_BRAND := oppo
-PRODUCT_MODEL := yasuo
+PRODUCT_MODEL := Reno 6 Pro
 PRODUCT_MANUFACTURER := oppo
 
 PRODUCT_GMS_CLIENTID_BASE := android-oppo

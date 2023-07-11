@@ -7,10 +7,6 @@
 
 DEVICE_PATH := device/oppo/yasuo
 
-# 这两个仅适用于MTK芯片组
-BOARD_USES_MTK_HARDWARE := true
-BOARD_HAS_MTK_HARDWARE := true
-
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
 
@@ -36,6 +32,14 @@ DEXPREOPT_GENERATE_APEX_IMAGE := true
 TARGET_BOOTLOADER_BOARD_NAME := k6893v1_64_k419
 TARGET_NO_BOOTLOADER := true
 
+
+# 这两个仅适用于MTK芯片组
+BOARD_USES_MTK_HARDWARE := true
+BOARD_HAS_MTK_HARDWARE := true
+
+# Platform
+TARGET_BOARD_PLATFORM := mt6893
+
 # Display
 TARGET_SCREEN_DENSITY := 480
 
@@ -57,31 +61,35 @@ TARGET_SCREEN_DENSITY := 480
 
 # Kernel - prebuilt 使用预先构建的二进制文件
 # 内核
-TARGET_FORCE_PREBUILT_KERNEL := true                     # true/false：确定设备是否为64位
+# true/false：确定设备是否为64位
 # 从解压缩的恢复映像中获取CMDLine、Base、Pagesize和offsets并在下面填入
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-BOARD_KERNEL_IMAGE_NAME := Image.gz
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz
-TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-# BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
-# BOARD_KERNEL_SEPARATED_DTBO := 
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 buildvariant=user androidboot.selinux=permissive
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+# BOARD_INCLUDE_DTB_IN_BOOTIMG := 
+# BOARD_KERNEL_SEPARATED_DTBO := 
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_BOOTIMG_HEADER_VERSION := 2
+BOARD_RAMDISK_OFFSET := 0x11088000
 BOARD_KERNEL_BASE := 0x40078000
 BOARD_KERNEL_TAGS_OFFSET := 0x07c08000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-endif
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_KERNEL_IMAGE_NAME := kernel
 
 # FASTAB
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/ecovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 TARGET_BOARD_SUFFIX := _64                    # 如果设备是32位，则删除此行
 TARGET_USES_64_BIT_BINDER := true             # 如果设备是32位，则删除此行
+
+# Metadata
+BOARD_USES_METADATA_PARTITION := true
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
@@ -97,11 +105,7 @@ BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
 BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system system vendor vendor product product odm odm my_product my_product my_engineering my_engineering my_company my_company my_carrier my_carrier my_region my_region my_heytap my_heytap my_stock my_stock my_preload my_preload my_bigball my_bigball
 BOARD_OPLUS_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
-# Platform
-TARGET_BOARD_PLATFORM := mt6893
-
 # Recovery
-BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -123,12 +127,24 @@ VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 16.1.0
 
 # TWRP Configuration
+RECOVERY_SDCARD_ON_DATA := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+TW_INCLUDE_RESETPROP := true
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXTRA_LANGUAGES := true
+TW_INCLUDE_NTFS_3G := true
+TW_USE_TOOLBOX := true
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 4095
+TW_DEFAULT_BRIGHTNESS := 1024
 DEVICE_RESOLUTION := 1080X2400                # 设备的分辨率
 TARGET_SCREEN_HEIGHT := 2400                   # 高度
 TARGET_SCREEN_WIDTH := 1080                     # 宽度
-TW_EXCLUDE_SUPERSU := true                    # true/false：是否添加SuperSU
 TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
