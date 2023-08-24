@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/oppo/yasuo
+DEVICE_PATH := device/oppo/pepm00
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
@@ -59,8 +59,8 @@ TARGET_SCREEN_DENSITY := 480
 # BOARD_KERNEL_IMAGE_NAME := Image
 # BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 # BOARD_KERNEL_SEPARATED_DTBO := true
-# TARGET_KERNEL_CONFIG := yasuo_defconfig
-# TARGET_KERNEL_SOURCE := kernel/oppo/yasuo
+# TARGET_KERNEL_CONFIG := k6893v1_64_k419_defconfig
+# TARGET_KERNEL_SOURCE := 
 
 # Kernel - prebuilt 使用预先构建的二进制文件
 # 内核
