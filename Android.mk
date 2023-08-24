@@ -7,6 +7,6 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),yasuo)
+ifeq ($(TARGET_DEVICE),pbem00)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
 endif
