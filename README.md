@@ -17,7 +17,8 @@ Target Android Version | 13
 **Works**
 
 - Booting.
-- **Decryption** (At least for Android 12)
+
+**Decryption**
 - ADB
 
 **Not Working**
