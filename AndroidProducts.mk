@@ -6,9 +6,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/omni_yasuo.mk
+    $(LOCAL_DIR)/omni_pepm00.mk
 
 COMMON_LUNCH_CHOICES := \
-    omni_yasuo-user \
-    omni_yasuo-userdebug \
-    omni_yasuo-eng
+    omni_pepm00-user \
+    omni_pepm00-userdebug \
+    omni_pepm00-eng

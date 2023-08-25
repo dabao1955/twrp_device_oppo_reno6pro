@@ -1,4 +1,4 @@
-# Android device tree for Oppo RENO 6 PRO (yasuo)
+# Android device tree for OPPO Reno 6 Pro (PEPM00)
 
 ```
 #

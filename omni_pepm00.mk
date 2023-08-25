@@ -10,10 +10,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 # Inherit from ossi device
-$(call inherit-product, device/oppo/yasuo/device.mk)
+$(call inherit-product, device/oppo/pepm00/device.mk)
 
-PRODUCT_DEVICE := yasuo
-PRODUCT_NAME := omni_yasuo
+PRODUCT_DEVICE := pepm00
+PRODUCT_NAME := omni_pepm00
 PRODUCT_BRAND := oppo
 PRODUCT_MODEL := Reno 6 Pro
 PRODUCT_MANUFACTURER := oppo
