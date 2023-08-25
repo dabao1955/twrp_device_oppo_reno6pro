@@ -1,5 +1,3 @@
-# Android device tree for OPPO Reno 6 Pro (PEPM00)
-
 Device configuration for OPPO Reno6 Pro
 =========================================
 
