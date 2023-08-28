@@ -38,3 +38,7 @@ my_manifest        /my_manifest     erofs    ro,barrier=1  wait,logical,first_st
 /dev/block/by-name/vbmeta_vendor /vbmeta_vendor emmc defaults first_stage_mount,nofail,
 /dev/block/by-name/vbmeta_system /vbmeta_system emmc defaults first_stage_mount,nofail,,avb=vbmeta
 
+/dev/block/by-name/odmdtbo /odmdtbo emmc defaults defaults
+/dev/block/by-name/dtbo /dtbo emmc defaults defaults
+/dev/block/by-name/otp /otp emmc defaults defaults
+
