@@ -18,7 +18,7 @@ Target Android Version | 13
 
 - Booting.
 
-**Decryption**
+**Maybe Work**
 - ADB
 
 **Not Working**
