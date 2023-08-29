@@ -16,6 +16,9 @@ Camera  | 64mp ov64b + 8mp imx355 +2mp
 Release Date | 2021
 Target Android Version | 13
 
+## Build status 
+[![构建 Recovery](https://github.com/dabao1955/Action-TWRP-builder/actions/workflows/Recovery%20Build.yml/badge.svg)](https://github.com/dabao1955/Action-TWRP-builder/actions/workflows/Recovery%20Build.yml)
+
 ## Features
 
 **Works**
