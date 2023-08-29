@@ -11,7 +11,8 @@ GPU     | Arm Mali-G77MC9
 Memory  | 8/12 GB, LPDDR4x
 Storage | 128/256 GB, UFS 3.1
 Battery | 4500 mAh (non-removable) 
-Display | 1080 x 2340 pixels 
+Display | 1080 x 2400 pixels
+Camera  | 64mp ov64b + 8mp imx355 +2mp
 Release Date | 2021
 Target Android Version | 13
 
