@@ -10,6 +10,9 @@ Chipset | Mediatek Dimensity 1200 5G (6 nm)
 GPU     | Arm Mali-G77MC9
 Memory  | 8/12 GB, LPDDR4x
 Storage | 128/256 GB, UFS 3.1
+Battery | 4500 mAh (non-removable) 
+Display | 1080 x 2340 pixels 
+Release Date | 2 21
 Target Android Version | 13
 
 ## Features
