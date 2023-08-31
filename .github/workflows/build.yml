@@ -68,7 +68,7 @@ jobs:
 
     - name: Sync Device Dependencies
       run: |
-        bash ${GITHUB_WORKSPACE}/.github/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
+        bash ${GITHUB_WORKSPACE}/.github/scripts/convert.sh device/oppo/pepm00/twrp.dependencies
         repo sync -j$(nproc --all)
       working-directory: workspace
       continue-on-error: true
@@ -82,7 +82,7 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch omni_pepm00-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
+        lunch omni_pepm00-eng && make clean && make recoveryimage -j$(nproc --all)
       working-directory: workspace
 
     - name: Upload recovery.img to Artifact
