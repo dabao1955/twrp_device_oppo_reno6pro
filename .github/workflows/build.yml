@@ -89,7 +89,7 @@ jobs:
       if: github.event_name == 'push'
       uses: actions/upload-artifact@v3
       with: 
-       name: PEPM00-twrp-android13-$(date)
+       name: "PEPM00-twrp-android13-build_date_$(date)"
        path: workspace/out/target/product/pepm00/recovery.img
         
   
