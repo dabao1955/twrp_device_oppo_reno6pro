@@ -9,20 +9,23 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
+    outputs:
+      build_info: ${{ steps.echo.outputs.build_info }}
     steps:
     
     - name: Display Run Parameters
       run: |
         echo "::group::User Environment Variables"
-        echo "Manifest URL: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp" >> $GITHUB_OUTPUT
+        echo "Manifest URL: " >> $GITHUB_OUTPUT
         echo "Manifest Branch: twrp-12.1" >> $GITHUB_OUTPUT
         echo "Device Tree URL: https://github.com/dabao1955/twrp_device_oppo_reno6pro" >> $GITHUB_OUTPUT
         echo "Device Tree Branch: oss-T/twrp-12.1" >> $GITHUB_OUTPUT
-        echo "Device Path: device/oppo/pepm00" >> $GITHUB_OUTPUT
+        echo "Device Path: " >> $GITHUB_OUTPUT
         echo "Device Name: omni_pepm00" >> $GITHUB_OUTPUT
         echo "Makefile Name: omni_pepm00" >> $GITHUB_OUTPUT
         echo "Build Target: recovery.img" >> $GITHUB_OUTPUT
         echo "::endgroup::"
+        echo "::set-output name=build_info::${{ env.BUILD_INFO }}"
     - name: "Set builddate"
       id: generate-builddate
       run: echo "builddate=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
@@ -74,7 +77,7 @@ jobs:
         echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
         git config --global user.name "Nico170420"
         git config --global user.email "b170420nc@gmail.com"
-        repo init --depth=1 -u ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
+        repo init --depth=1 -u $ https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
       id: pwd
           
     - name: Repo Sync
@@ -84,14 +87,14 @@ jobs:
       
     - name: Clone device tree
       run: |
-        git clone ${{ github.event.inputs.DEVICE_TREE_URL }} -b ${{ github.event.inputs.DEVICE_TREE_BRANCH }} ./${{ github.event.inputs.DEVICE_PATH }}
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+        git clone https://github.com/dabao1955/twrp_device_oppo_reno6pro -b oss-T/twrp-12.1 ./device/oppo/pepm00
+      working-directory: workspace
 
     - name: Sync Device Dependencies
       run: |
         bash ${GITHUB_WORKSPACE}/.github/scripts/convert.sh ${{ github.event.inputs.DEVICE_PATH }}/${{ steps.buildtree.outputs.value }}.dependencies
         repo sync -j$(nproc --all)
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+      working-directory: workspace
       continue-on-error: true
 
     - name: Set Swap Space
@@ -103,8 +106,8 @@ jobs:
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ github.event.inputs.MAKEFILE_NAME }}-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
-      working-directory: ${{ steps.pwd.outputs.workspace-folder }}
+        lunch omni_pepm00-eng && make clean && make ${{ github.event.inputs.BUILD_TARGET }}image -j$(nproc --all)
+      working-directory: workspace
 
     - name: Upload recovery.img to Artifact
       if: github.event_name == 'push'
