@@ -17,8 +17,7 @@ Release Date | 2021
 Target Android Version | 13
 
 ## Build status 
-[![构建 Recovery](https://github.com/dabao1955/Action-TWRP-builder/actions/workflows/Recovery%20Build.yml/badge.svg)](https://github.com/dabao1955/Action-TWRP-builder/actions/workflows/Recovery%20Build.yml)
-
+[![build recovery](https://github.com/dabao1955/twrp_device_oppo_reno6pro/actions/workflows/build.yml/badge.svg)](https://github.com/dabao1955/twrp_device_oppo_reno6pro/actions/workflows/build.yml)
 ## Features
 
 **Works**
