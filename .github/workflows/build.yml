@@ -88,8 +88,9 @@ jobs:
     - name: Upload recovery.img to Artifact
       if: github.event_name == 'push'
       uses: actions/upload-artifact@v3
-      with:
-        files: workspace/out/target/product/pepm00/recovery.img
+      with: 
+       name: PEPM00-twrp-android13-$(date)
+       path: workspace/out/target/product/pepm00/recovery.img
         
   
     
