@@ -10,28 +10,32 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: "Checkout Repo"
-      uses: actions/checkout@v3
     
     - name: Display Run Parameters
       run: |
         echo "::group::User Environment Variables"
-        echo "Manifest URL: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp"
-        echo "Manifest Branch: twrp-12.1"
-        echo "Device Tree URL: https://github.com/dabao1955/twrp_device_oppo_reno6pro"
-        echo "Device Tree Branch: oss-T/twrp-12.1"
-        echo "Device Path: device/oppo/pepm00"
-        echo "Device Name: omni_pepm00"
-        echo "Makefile Name: omni_pepm00"
-        echo "Build Target: recovery.img"
+        echo "Manifest URL: https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp" >> $GITHUB_OUTPUT
+        echo "Manifest Branch: twrp-12.1" >> $GITHUB_OUTPUT
+        echo "Device Tree URL: https://github.com/dabao1955/twrp_device_oppo_reno6pro" >> $GITHUB_OUTPUT
+        echo "Device Tree Branch: oss-T/twrp-12.1" >> $GITHUB_OUTPUT
+        echo "Device Path: device/oppo/pepm00" >> $GITHUB_OUTPUT
+        echo "Device Name: omni_pepm00" >> $GITHUB_OUTPUT
+        echo "Makefile Name: omni_pepm00" >> $GITHUB_OUTPUT
+        echo "Build Target: recovery.img" >> $GITHUB_OUTPUT
         echo "::endgroup::"
-
+    - name: "Set builddate"
+      id: generate-builddate
+      run: echo "builddate=$(date +'%Y%m%d')" >> $GITHUB_OUTPUT
   build-recovery:
     needs: init
     runs-on: ubuntu-20.04
     permissions:
       contents: write
     steps:
+
+    - name: "Checkout Repo"
+      uses: actions/checkout@v3
+      
     # Cleanup The Actions Workspace Using Custom Composite Run Actions
     - name: Cleanup
       uses: rokibhasansagar/slimhub_actions@main
