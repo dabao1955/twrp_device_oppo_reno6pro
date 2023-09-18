@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 if [ -n "$1" ] && [ -e $1 ]; then
 	file=$1
