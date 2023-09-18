@@ -12,12 +12,7 @@ jobs:
     steps:
 
     - name: "Checkout Repo"
-      uses: actions/checkout@v3
-      
-    # Cleanup The Actions Workspace Using Custom Composite Run Actions
-    - name: Cleanup
-      uses: rokibhasansagar/slimhub_actions@main
-      # That's it! Now use your normal steps
+      uses: actions/checkout@v4
 
     - name: Free Disk Space (Ubuntu)
       uses: jlumbroso/free-disk-space@main
@@ -31,6 +26,11 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: true
+      
+    # Cleanup The Actions Workspace Using Custom Composite Run Actions
+    - name: Cleanup
+      uses: rokibhasansagar/slimhub_actions@main
+      # That's it! Now use your normal steps
 
     - name: Prepare the environment
       run: |
