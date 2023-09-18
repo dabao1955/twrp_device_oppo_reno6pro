@@ -3,7 +3,7 @@ on:
   push:
     branches: ["oss-T/twrp-12.1"]
   pull_request:
-    branches: ["oss-T-dev/twrp-12.1"]
+  
 jobs:
   build-recovery:
     runs-on: ubuntu-20.04
