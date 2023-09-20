@@ -78,11 +78,16 @@ jobs:
       with:
         swap-size-gb: 12
 
-    - name: Building recovery
+    - name: Configure recovery config
       run: |
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch omni_pepm00-eng && make clean && make recoveryimage -j$(nproc --all)
+        lunch omni_pepm00-eng 
+      working-directory: workspace
+        
+    - name: Building recovery
+      run: |
+        make clean && make recoveryimage -j$(nproc --all)
       working-directory: workspace
 
     - name: Upload recovery.img to Artifact
