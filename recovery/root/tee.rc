@@ -11,6 +11,7 @@ on post-fs
 
     # Create mcRegistry to store failure record
     mkdir /mnt/vendor/persist/mcRegistry 0771 system system
+    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
 
 on post-fs-data
     # Create /data/vendor/key_provisioning dir and get proper encryption policy installed
@@ -21,16 +22,19 @@ on post-fs-data
 on property:ro.crypto.state=unencrypted
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (unencrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
+    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (unencrypted)"
 
 # Normal mode, FBE
 on property:ro.crypto.type=file && property:ro.crypto.state=encrypted
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (FBE encrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
+    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (FBE encrypted)"
 
 # Normal mode, FDE
 on property:vold.decrypt=trigger_restart_framework
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry ++ (FDE encrypted)"
     mkdir /data/vendor/mcRegistry 0775 system system
+    chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
     write /proc/bootprof "MOBICORE: create /data/vendor/mcRegistry -- (FDE encrypted)"
