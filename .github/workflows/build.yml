@@ -1,4 +1,4 @@
-9name: build recovery
+name: build recovery
 on:
   push:
     branches: ["oss-T/twrp-12.1"]
