@@ -1,4 +1,4 @@
-name: build recovery
+9name: build recovery
 on:
   push:
     branches: ["oss-T/twrp-12.1"]
@@ -82,7 +82,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch omni_pepm00-eng && make clean && make recoveryimage -j$(nproc --all)
-        sudo chmod 777 -r -v out/*
+        sudo chmod 777 -R out/* -v
       working-directory: workspace
 
     - name: Upload recovery.img to Artifact
