@@ -82,7 +82,7 @@ jobs:
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
         lunch omni_pepm00-eng && make clean && make recoveryimage -j$(nproc --all)
-        sudo chmod 777 -R out/* -v
+        sudo chmod 777 -R out/* 
       working-directory: workspace
 
     - name: Upload recovery.img to Artifact
