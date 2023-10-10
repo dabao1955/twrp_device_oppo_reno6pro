@@ -90,7 +90,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with: 
        name: "recovery.zip"
-       path: workspace/out/target/product/pepm00/*
+       path: workspace/out/target/product/pepm00/recovery.img
         
   
     
