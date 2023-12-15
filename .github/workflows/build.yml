@@ -1,0 +1,96 @@
+name: build recovery
+on:
+  push:
+    branches: ["oss-T/twrp-12.1"]
+  pull_request:
+  workflow_dispatch:
+  
+jobs:
+  build-recovery:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: write
+    steps:
+
+    - name: "Checkout Repo"
+      uses: actions/checkout@v4
+      
+    # Cleanup The Actions Workspace Using Custom Composite Run Actions
+    - name: Free Disk Space
+      uses: rokibhasansagar/slimhub_actions@main
+      # That's it! Now use your normal steps
+
+    - name: Install Build Tools
+      uses: daaku/gh-action-apt-install@v4
+      with:
+        packages: dos2unix gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libncurses5 python
+
+    - name: Install OpenJDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '8'
+
+    - name: Setup ccache
+
+      uses: hendrikmuhs/ccache-action@main
+      with: 
+        max-size: 4G
+         
+    - name: Install repo
+      run: |
+        mkdir ~/bin
+        ls
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+        chmod a+x ~/bin/repo
+        sudo ln -sf ~/bin/repo /usr/bin/repo
+      
+    - name: Initialize repo
+      run: |
+        mkdir workspace
+        cd workspace
+        echo "workspace-folder=$(pwd)" >> $GITHUB_OUTPUT
+        git config --global user.name "Nico170420"
+        git config --global user.email "b170420nc@gmail.com"
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp -b twrp-12.1
+      id: pwd
+          
+    - name: Repo Sync
+      run: |
+        repo sync -j$(nproc --all) --force-sync
+      working-directory: workspace
+      
+    - name: Clone device tree
+      run: |
+        git clone https://github.com/dabao1955/twrp_device_oppo_reno6pro -b oss-T/twrp-12.1 ./device/oppo/pepm00
+      working-directory: workspace
+
+    - name: Sync Device Dependencies
+      run: |
+        bash ${GITHUB_WORKSPACE}/.github/scripts/convert.sh device/oppo/pepm00/twrp.dependencies
+        repo sync -j$(nproc --all)
+      working-directory: workspace
+      continue-on-error: true
+
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 12
+
+    - name: Building recovery
+      run: |
+        source build/envsetup.sh
+        export ALLOW_MISSING_DEPENDENCIES=true
+        lunch omni_pepm00-eng && make clean && make recoveryimage -j$(nproc --all)
+        sudo chmod 777 -R out/* 
+      working-directory: workspace
+
+    - name: Upload recovery.img to Artifact
+      if: github.event_name == 'push'
+      uses: actions/upload-artifact@v3
+      with: 
+       name: "recovery.zip"
+       path: workspace/out/target/product/pepm00/recovery.img
+        
+  
+    
